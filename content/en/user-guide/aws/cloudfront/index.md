@@ -43,7 +43,7 @@ Run the following command to create a distribution with the default settings:
 {{< command >}}
 $ domain=$(awslocal cloudfront create-distribution \
    --origin-domain-name abc123.s3.amazonaws.com | jq -r '.Distribution.DomainName')
-$ curl -k https://$domain/hello.txt
+$ curl -k https://$domain:4566/hello.txt
 {{< / command >}}
 
 {{< callout "tip" >}}
@@ -51,7 +51,7 @@ If you wish to use CloudFront on system host, ensure your local DNS setup is cor
 Refer to the section on [System DNS configuration]({{< ref "dns-server#system-dns-configuration" >}}) for details.
 {{< /callout >}}
 
-In the example provided above, be aware that the final command (`curl https://$domain/hello.txt`) might encounter a temporary failure accompanied by a warning message `Could not resolve host`.
+In the example provided above, be aware that the final command (`curl https://$domain:4566/hello.txt`) might encounter a temporary failure accompanied by a warning message `Could not resolve host`.
 This can occur because different operating systems adopt diverse DNS caching strategies, causing a delay in the availability of the CloudFront distribution's DNS name (e.g., `abc123.cloudfront.net`) within the system.
 Typically, after a few retries, the command should succeed.
 It's worth noting that similar behavior can be observed in the actual AWS environment, where CloudFront DNS names may take up to 10-15 minutes to propagate across the network.
